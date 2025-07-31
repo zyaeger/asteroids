@@ -2,12 +2,12 @@ import sys
 
 import pygame
 
-from asteroid import Asteroid
-from asteroidfield import AsteroidField
-from constants import *
-from player import Player
+from constants import SCREEN_HEIGHT, SCREEN_WIDTH
 from score import Score
-from shot import Shot
+from sprites.asteroid import Asteroid
+from sprites.asteroidfield import AsteroidField
+from sprites.player import Player
+from sprites.shot import Shot
 
 
 def main():
@@ -23,8 +23,9 @@ def main():
     shots = pygame.sprite.Group()
 
     Asteroid.containers = (asteroids, drawable, updatable)
-    AsteroidField.containers = (updatable)
+    AsteroidField.containers = updatable
 
+    # pylint: disable=unused-variable
     field = AsteroidField()
     score = Score()
 
@@ -39,7 +40,7 @@ def main():
         for event in pygame.event.get():
             if event.type == pygame.QUIT:
                 return
-            
+
         updatable.update(dt)
         for asteroid in asteroids:
             if asteroid.detect_collision(player):
