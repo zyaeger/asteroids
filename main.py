@@ -1,3 +1,5 @@
+import sys
+
 import pygame
 
 from asteroid import Asteroid
@@ -27,10 +29,13 @@ def main():
     while True:
         for event in pygame.event.get():
             if event.type == pygame.QUIT:
-                print("Quitting Asteroids!")
                 return
             
         updatable.update(dt)
+        for asteroid in asteroids:
+            if asteroid.detect_collision(player):
+                print("Game over!")
+                sys.exit(0)
 
         screen.fill("black")
 
